@@ -1,0 +1,32 @@
+CASE
+	WHEN CONDIÇÃO
+    THEN "ALGO"
+END AS Caso;
+
+# classificar o valor dos produtos
+SELECT NOME_DO_PRODUTO, MAX(PRECO_DE_LISTA) FROM tabela_de_produtos GROUP BY NOME_DO_PRODUTO, PRECO_DE_LISTA;
+SELECT NOME_DO_PRODUTO, PRECO_DE_LISTA,
+CASE
+	WHEN PRECO_DE_LISTA >= 14.0
+    THEN "PRODUTO CARO"
+    WHEN PRECO_DE_LISTA >= 7.0 AND PRECO_DE_LISTA < 14
+    THEN "PRODUTO RAZOÁVEL"
+    ELSE "PRODUTO BARATO"
+END AS STATUS_PRECO FROM tabela_de_produtos ORDER BY PRECO_DE_LISTA;
+
+/* Veja o ano de nascimento dos clientes e classifique-os como: nascidos antes de 1990 são velhos, 
+nascidos entre 1990 e 1995 são jovens e nascidos depois de 1995 são crianças */
+
+SELECT NOME, 
+
+CASE
+	WHEN YEAR(DATA_DE_NASCIMENTO) < '1990'
+    THEN "VELHO"
+    WHEN YEAR(DATA_DE_NASCIMENTO) >= '1990' AND YEAR(DATA_DE_NASCIMENTO) < '1995'
+    THEN "JOVENS"
+    ELSE "CRIANÇAS"
+END AS FAIXA_ETARIA FROM tabela_de_clientes ORDER BY NOME;
+
+SELECT NOME, DATA_DE_NASCIMENTO, IDADE 
+
+FROM tabela_de_clientes ORDER BY DATA_DE_NASCIMENTO;
