@@ -23,5 +23,11 @@ select year(NF.DATA_VENDA) as ANO, sum(INF.QUANTIDADE * INF.PRECO) as FATURAMENT
 from itens_notas_fiscais as INF
 inner join notas_fiscais as NF
 on NF.NUMERO = INF.NUMERO
-group by ANO
-;
+group by ANO;
+
+select * from tabela_de_vendedores;
+
+select * 
+from notas_fiscais as NF
+inner join tabela_de_vendedores as TV
+on TV.MATRICULA = NF.MATRICULA;
