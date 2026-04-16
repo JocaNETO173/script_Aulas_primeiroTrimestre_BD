@@ -8,16 +8,26 @@ se as vendas do mês foram válidas ou inválidas.
 
 SELECT 
     NF.CPF,
+    TC.NOME,
+    SUM(TC.VOLUME_DE_COMPRA) AS QNTD_LIMITE,
     DATE_FORMAT(NF.DATA_VENDA, '%Y-%M') AS DATA_VENDA,
     SUM(INF.QUANTIDADE) as QUANTIDADE
 FROM
     notas_fiscais AS NF
+		INNER JOIN
+	tabela_de_clientes as TC ON TC.CPF = NF.CPF
         INNER JOIN
     itens_notas_fiscais AS INF ON NF.NUMERO = INF.NUMERO
+		
 		GROUP BY NF.CPF, DATA_VENDA;
         
-/* obter o volume de compra da tabela de clientes*/
-select CPF, VOLUME_DE_COMPRA from tabela_de_clientes;
+        
+select * from tabela_de_clientes;
+SELECT 
+	TC.CPF, 
+	TC.NOME,
+    TC.VOLUME_DE_COMPRA AS QNTD_LIMITE
+FROM tabela_de_clientes AS TC;
 
 
 
