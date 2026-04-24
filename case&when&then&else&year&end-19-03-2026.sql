@@ -18,7 +18,6 @@ END AS STATUS_PRECO FROM tabela_de_produtos ORDER BY PRECO_DE_LISTA;
 nascidos entre 1990 e 1995 são jovens e nascidos depois de 1995 são crianças */
 
 SELECT NOME, 
-
 CASE
 	WHEN YEAR(DATA_DE_NASCIMENTO) < '1990'
     THEN "VELHO"

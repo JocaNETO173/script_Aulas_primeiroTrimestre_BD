@@ -6,6 +6,7 @@ A partir da comparação do volume de compras e da quantidade é possível dizer
 se as vendas do mês foram válidas ou inválidas. 
 */
 
+-- consulta finalizada - arrumar soma da quantidade
 SELECT 
     NF.CPF,
     TC.NOME,
@@ -18,17 +19,27 @@ FROM
 	tabela_de_clientes as TC ON TC.CPF = NF.CPF
         INNER JOIN
     itens_notas_fiscais AS INF ON NF.NUMERO = INF.NUMERO
-		
+    
 		GROUP BY NF.CPF, DATA_VENDA;
         
         
-select * from tabela_de_clientes;
+SELECT X.CPF, X.NOME, X.DATA_VENDA, X.QUANTIDADE, X.QNTD_LIMITE
+FROM(
 SELECT 
-	TC.CPF, 
-	TC.NOME,
-    TC.VOLUME_DE_COMPRA AS QNTD_LIMITE
-FROM tabela_de_clientes AS TC;
-
+    NF.CPF,
+    TC.NOME,
+    TC.VOLUME_DE_COMPRA AS QNTD_LIMITE,
+    DATE_FORMAT(NF.DATA_VENDA, '%Y-%m') AS DATA_VENDA,
+    SUM(INF.QUANTIDADE) as QUANTIDADE
+FROM
+    notas_fiscais AS NF
+		INNER JOIN
+	tabela_de_clientes as TC ON TC.CPF = NF.CPF
+        INNER JOIN
+    itens_notas_fiscais AS INF ON NF.NUMERO = INF.NUMERO
+    
+		GROUP BY NF.CPF, TC.NOME, TC.VOLUME_DE_COMPRA, DATA_VENDA
+        ) X;
 
 
 
